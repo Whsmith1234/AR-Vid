@@ -26,6 +26,10 @@ chrome.runtime.sendMessage({
       for(var i =0; i <videos.length; i++){
         f += document.getElementsByTagName('video')[i].src+" | "
       }
+      var sources = document.getElementsByTagName('source');
+      for(var i =0; i <sources.length; i++){
+        f += document.getElementsByTagName('source')[i].src+" | "
+      }
       f += window.location.href;
       var domInfo = {
         videos: f

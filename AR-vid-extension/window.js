@@ -19,9 +19,16 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 async function start(packet){
-  document.getElementById('url').value = packet[0];
-  document.getElementsByTagName('video')[0].src = packet[0];
-  document.getElementsByTagName('a')[0].href=("https://arvideo.netlify.app/?url="+packet[0]+'&host='+packet[packet.length-1]);
+  var i =0;
+  while(i<packet.length){
+    if(packet[i]!=""){
+      break;
+    }
+    i++
+  }
+  document.getElementById('url').value = packet[i];
+  document.getElementsByTagName('video')[0].src = packet[i];
+  document.getElementsByTagName('a')[0].href=("https://arvideo.netlify.app/?url="+packet[i]+'&host='+packet[packet.length-1]);
   var host = packet[packet.length-1];
   var transactions = await fetch("https://arweave.net/graphql", {
         method: "POST",
