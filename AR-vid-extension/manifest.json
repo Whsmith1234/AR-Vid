@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "Arvid",
+    "version": "0.0",
+    "offline_enabled": true,
+  
+    "background": {
+      "persistent": false,
+      "scripts": ["background.js"]
+    },
+    "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["arvid.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }],
+    "browser_action": {
+       "default_title": "ArVid",
+       "default_icon": {
+        "19": "128.png",
+        "38": "128.png"
+       },
+      "default_popup": "arvid.html"
+    }
+  }

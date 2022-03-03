@@ -25,11 +25,13 @@ export default {
   name: 'uploader',
   data: () => ({
     url: "hey",
+    host: ""
   }),
   mounted: async function(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.url = urlParams.get("url");
+    this.host = urlParams.get("host");
   },
   methods:{
     importVideo: async function(url){
@@ -42,6 +44,12 @@ export default {
       var amount = await arweave.ar.winstonToAr(transaction.reward);
       console.log(amount);
       transaction.addTag("Content-Type", "video/mp4");
+      transaction.addTag("App-Name", "Arvideo")
+      transaction.addTag("Url", this.url);
+      if(this.host){
+        transaction.addTag("Url", this.host);
+        console.log(this.host);
+      }
       await arweave.transactions.sign(transaction);
       if(confirm("Are you sure it you want to upload this video to the Arweave network? It will cost you "+amount+" AR")){
         let uploader = await arweave.transactions.getUploader(transaction);

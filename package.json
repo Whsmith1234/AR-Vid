@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dep": "git pull && git add . && git commit -am'new' && git push"
   },
   "dependencies": {
     "@bundlr-network/client": "^0.5.16",
