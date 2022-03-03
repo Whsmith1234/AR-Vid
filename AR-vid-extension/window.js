@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
 async function start(packet){
   document.getElementById('url').value = packet[0];
   document.getElementsByTagName('video')[0].src = packet[0];
-  document.getElementsByTagName('a')[0].href=("http://localhost:8080/?url="+packet[0]+'&host='+packet[packet.length-1]);
+  document.getElementsByTagName('a')[0].href=("https://arvideo.netlify.app/?url="+packet[0]+'&host='+packet[packet.length-1]);
   var host = packet[packet.length-1];
   var transactions = await fetch("https://arweave.net/graphql", {
         method: "POST",
