@@ -66,7 +66,7 @@ async function start(packet){
       document.getElementById("loader").className = "hide";
       document.getElementById("content").className = "";
       if(transactions.length>0){
-        var video = "https://arweave.net/"+transactions[0].node.id;
+        var video = "https://arvideo.netlify.app/?view="+transactions[0].node.id+'&url=https://arweave.net/'+transactions[0].node.id
         document.getElementById('url').value=video;
         document.getElementsByTagName('video')[0].src = video;
         var btn = document.getElementsByTagName('a')[0];
