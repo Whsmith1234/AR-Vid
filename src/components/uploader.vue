@@ -10,7 +10,7 @@
       <button v-on:click="importVideo(url)" class="button is-success">
         Upload
       </button>
-      <br>
+      <br><br>
       <video :src="url" controls></video>
       <br><br>
       <div class="left">Original Urls</div>
@@ -34,7 +34,7 @@
                 :src="'https://arweave.net/' + video.node.id"
               ></video>
               <br /><br />
-              <a :href="'https://arweave.net/' + video.node.id">Watch full</a>
+              <a :href="'/?url=https://arweave.net/' + video.node.id+'&view='+video.node.id">Watch full</a>
             </div>
           </div>
         </ul>
