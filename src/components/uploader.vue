@@ -11,6 +11,9 @@
         Upload
       </button>
       <br><br>
+        <center>
+        {{uploading}}
+        </center>
       <video :src="url" controls></video>
       <br><br>
       <div class="left">Original Urls</div>
@@ -61,7 +64,8 @@ export default {
     host: "",
     videos: [],
     show: "Show",
-    tags: []
+    tags: [],
+    uploading: ""
   }),
   mounted: async function () {
     const queryString = window.location.search;         // Grab parameters
@@ -93,17 +97,20 @@ export default {
       }
     },
     importVideo: async function (url) {
+      this.uploading = "Fetchng video...";
       var video = await fetch(url);
       video = await video.arrayBuffer();
       let transaction = await arweave.createTransaction({
         data: video,
       });
+      this.uploading = "Making transaction...";
       console.log(transaction);
       var amount = await arweave.ar.winstonToAr(transaction.reward);
       console.log(amount);
       transaction.addTag("Content-Type", "video/mp4");
       transaction.addTag("App-Name", "Arvideo");
       transaction.addTag("Url", this.url);
+      this.uploading= "Adding tags..."
       if (this.host) {
         transaction.addTag("Url", this.host);
         console.log(this.host);
@@ -119,11 +126,14 @@ export default {
         let uploader = await arweave.transactions.getUploader(transaction);
         while (!uploader.isComplete) {
           await uploader.uploadChunk();
-          console.log(
-            `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-          );
+          
+          this.uploading =  `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
+          
         }
+        this.uploading=""
         this.url = "https://arweave.net/" + transaction.id;
+      }else{
+        this.uploading = "";
       }
     },
   },
